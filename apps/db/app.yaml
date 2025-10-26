@@ -1,0 +1,35 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: postgresql
+  namespace: argocd
+spec:
+  project: default
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: db
+  source:
+    repoURL: https://charts.bitnami.com/bitnami
+    chart: postgresql
+    targetRevision: 18.0.8
+    helm:
+      values: |-
+        global:
+          storageClass: local-path
+        auth:
+          username: iec
+          password: "123456789@"
+          database: event_db
+        persistence:
+          size: 5Gi
+        resources:
+          requests:
+            cpu: 500m
+            memory: 512Mi
+          limits:
+            cpu: 1
+            memory: 1Gi
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true

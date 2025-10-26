@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: backend
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: "https://github.com/ZuyzuyAnh/ptit-gitops.git"
+    targetRevision: HEAD
+    path: cluster/app/be
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: apps
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
