@@ -8,7 +8,7 @@ resources:
   - service.yaml
 images:
   - name: docker.io/jakecahill/be-app
-    newTag: latest
+    newTag: 1b42e
 labels:
   - includeSelectors: true
     pairs:

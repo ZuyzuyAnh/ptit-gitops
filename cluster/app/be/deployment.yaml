@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: backend
-          image: docker.io/jakecahill/be-app:latest
+          image: docker.io/jakecahill/be-app:b2a43
           imagePullPolicy: Always
           ports:
             - containerPort: 3456
