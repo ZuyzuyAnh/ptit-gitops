@@ -1,5 +1,1 @@
-for ns in $(kubectl get ns -o jsonpath='{.items[*].metadata.name}'); do
-  kubectl -n "$ns" rollout restart deployment --all
-  kubectl -n "$ns" rollout restart statefulset --all
-  kubectl -n "$ns" rollout restart daemonset --all
-done
+kubectl get deploy,statefulset,daemonset -A -o custom-columns='NAME:.metadata.name,NS:.metadata.namespace,TYPE:.kind'   --no-headers | while read name ns type; do     echo "Restarting $type/$name in namespace $ns";     kubectl rollout restart "$type/$name" -n "$ns";   done
